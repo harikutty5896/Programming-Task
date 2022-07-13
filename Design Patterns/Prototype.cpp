@@ -38,8 +38,8 @@ public:
 class simpleCar : public Car
 {
 public:
-    simpleCar(string n,int s,int p)
-        :Car (n,s,p)
+    simpleCar(string n, int s, int p)
+        :Car(n, s, p)
     {}
     unique_ptr<Car> clone()
     {
@@ -58,36 +58,36 @@ public:
     }
 };
 
-enum CarType{Racecar,SimpleCar};
+enum CarType { Racecar, SimpleCar };
 
-class Client
+class CarFactory
 {
 private:
-    unordered_map<CarType,unique_ptr<Car>, hash<int>> m_cars;
+    unordered_map<CarType, unique_ptr<Car>, hash<int>> m_cars;
 public:
-    Client()
+    CarFactory()
     {
         m_cars[SimpleCar] = make_unique<simpleCar>("Simple Car", 60, 200);
         m_cars[Racecar] = make_unique<RaceCar>("Race Car", 120, 400);
     }
 
-    unique_ptr<Car> createCar(CarType CarType)
+    unique_ptr<Car> createCar(CarType cartype)
     {
-        return m_cars[CarType]->clone();
+        return m_cars[cartype]->clone();
     }
 };
 
 int main()
 {
-    Client client;
-    auto Car = client.createCar(SimpleCar);
+    CarFactory carfactory;
+    auto Car = carfactory.createCar(SimpleCar);
     Car->carDetails("Green");
-    Car = client.createCar(SimpleCar);
+    Car = carfactory.createCar(SimpleCar);
     Car->carDetails("Red");
 
 
-    Car = client.createCar(Racecar);
+    Car = carfactory.createCar(Racecar);
     Car->carDetails("Blue");
-    Car = client.createCar(Racecar);
+    Car = carfactory.createCar(Racecar);
     Car->carDetails("Violet");
 }
