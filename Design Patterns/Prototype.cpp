@@ -44,8 +44,10 @@ public:
     unique_ptr<Car> clone()
     {
         return make_unique<simpleCar>(*this);
+        
     }
 };
+
 class RaceCar : public Car
 {
 public:
@@ -58,7 +60,7 @@ public:
     }
 };
 
-enum CarType { Racecar, SimpleCar };
+enum CarType { racecar, simplecar };
 
 class CarFactory
 {
@@ -67,8 +69,8 @@ private:
 public:
     CarFactory()
     {
-        m_cars[SimpleCar] = make_unique<simpleCar>("Simple Car", 60, 200);
-        m_cars[Racecar] = make_unique<RaceCar>("Race Car", 120, 400);
+        m_cars[simplecar] = make_unique<simpleCar>("Simple Car", 60, 200);
+        m_cars[racecar] = make_unique<RaceCar>("Race Car", 120, 400);
     }
 
     unique_ptr<Car> createCar(CarType cartype)
@@ -80,14 +82,15 @@ public:
 int main()
 {
     CarFactory carfactory;
-    auto Car = carfactory.createCar(SimpleCar);
+    auto Car = carfactory.createCar(simplecar);
     Car->carDetails("Green");
-    Car = carfactory.createCar(SimpleCar);
+
+    Car = carfactory.createCar(simplecar);
     Car->carDetails("Red");
 
 
-    Car = carfactory.createCar(Racecar);
+   /* Car = carfactory.createCar(racecar);
     Car->carDetails("Blue");
-    Car = carfactory.createCar(Racecar);
-    Car->carDetails("Violet");
+    Car = carfactory.createCar(racecar);
+    Car->carDetails("Violet");*/
 }

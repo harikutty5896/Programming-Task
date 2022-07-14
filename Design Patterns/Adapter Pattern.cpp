@@ -3,6 +3,8 @@
 #include <string>
 #include <stack>
 using namespace std;
+
+
 class Target
 {
 public:
@@ -57,10 +59,12 @@ public:
 
     }
 };
+
 void Client(const Target* target)
 {
     cout << target->Request();
 }
+
 int main()
 {
     Adaptee* adaptee = new Adaptee;
