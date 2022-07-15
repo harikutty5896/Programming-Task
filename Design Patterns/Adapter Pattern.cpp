@@ -4,15 +4,21 @@
 #include <stack>
 using namespace std;
 
+enum Types { Number };
 
-class Target
+class ClientInterface
 {
 public:
-    virtual ~Target() = default;
+    virtual ~ClientInterface() = default;
 
     virtual string Request() const
     {
-        return "Inside Request Block";
+        return "";
+    }
+
+    virtual int Request(Types t) const
+    {
+        return 0;
     }
 
 };
@@ -20,54 +26,85 @@ public:
 
 class Adaptee
 {
+private:
+    string password;
 public:
+    Adaptee(string p) : password(p)
+    {
+
+    }
     string NeedtoModified()
     {
-        string s = "gnirtS desreveR ma I";
-        return s;
+        return password;
+    }
+    int NumNeedtoModified()
+    {
+        return 100;
     }
 };
 
 
-class Adapter : public Target
+class Adapter : public ClientInterface
 {
 private:
-    Adaptee* adaptee_;
+    Adaptee* adapte;
 public:
-    Adapter(Adaptee* a) : adaptee_(a)
+    Adapter(Adaptee* a) : adapte(a)
     {
 
     }
 
     string Request() const override
     {
-        string needtomodified = this->adaptee_->NeedtoModified();
+        string needtomodified = this->adapte->NeedtoModified();
         string result;
-        stack<int> stk;
-
         for (char ch : needtomodified)
         {
-            stk.push(ch);
-        }
-
-        for (int i = 0; i < needtomodified.size(); i++)
-        {
-            result.push_back(stk.top());
-            stk.pop();
+            result.push_back(ch + 1);
         }
         return result;
 
     }
 };
 
-void Client(const Target* target)
+class NumberAdapter : public ClientInterface
+{
+private:
+    Adaptee* adaptee;
+public:
+    NumberAdapter(Adaptee* a) : adaptee(a)
+    {
+
+    }
+    int Request(Types t) const override
+    {
+        int numneedtomodified = this->adaptee->NumNeedtoModified();
+        return (numneedtomodified * 100);
+    }
+};
+
+void Client(const ClientInterface* target, Types t)
 {
     cout << target->Request();
+    cout << endl;
+    cout << target->Request(t);
 }
 
 int main()
 {
-    Adaptee* adaptee = new Adaptee;
+    string password;
+    cout << "Enter Password :" << endl;
+    cin >> password;
+
+    Types types = Number;
+
+    Adaptee* adaptee = new Adaptee(password);
+
+    //String Adapter
     Adapter* adapter = new Adapter(adaptee);
-    Client(adapter);
+    Client(adapter, types);
+
+    //Number Adapter
+    NumberAdapter* adapter2 = new NumberAdapter(adaptee);
+    Client(adapter2, types);
 }
