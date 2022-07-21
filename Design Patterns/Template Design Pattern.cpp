@@ -1,11 +1,11 @@
-
+#include "pch.h"
 #include <iostream>
-
+#include <memory>
 using namespace std;
 
 class ConstructHouse  //template Class
 {
-    public:
+public:
     void MakeHouse()  //template Method
     {
         this->SetWall();
@@ -14,30 +14,30 @@ class ConstructHouse  //template Class
         this->SetDoors();
         this->SetDecoration();
         this->MakeCompound();
-        
+
     }
-    protected:
-    
+protected:
+
     void SetWall() //Basic Operation
     {
-       cout << "House Wall Added" << endl; 
+        cout << "House Wall Added" << endl;
     }
     void SetRoof() //Basic Operation
     {
-       cout << "House Roof Added" << endl; 
+        cout << "House Roof Added" << endl;
     }
-    
-    virtual void SetWindow()=0;
-    virtual void SetDoors()=0;
-    
+
+    virtual void SetWindow() = 0;
+    virtual void SetDoors() = 0;
+
     virtual void SetDecoration()
     {
     }
     virtual void MakeCompound()
     {
     }
-  
-    
+
+
 };
 
 class ConstructWoodenHouse : public ConstructHouse
@@ -50,7 +50,7 @@ class ConstructWoodenHouse : public ConstructHouse
     {
         cout << "Wooden Doors Added" << endl;
     }
-    
+
     void MakeCompound()
     {
         cout << "Compound Wall Added " << endl;
@@ -67,33 +67,29 @@ class ConstructSteelHouse : public ConstructHouse
     {
         cout << "Steel Doors Added" << endl;
     }
-    
+
     void SetDecoration()
     {
         cout << "House Decoration Added" << endl;
     }
 };
 
-void Client(ConstructHouse * c)
-{
-    c->MakeHouse(); //Template Method
-}
 
 int main()
 {
     int x;
     cout << "Enter 1 for Wooden House \nEnter 2 for Steel House" << endl;
     cin >> x;
-    
-    if(x==1)
+
+    if (x == 1)
     {
-      ConstructWoodenHouse * woodenhouse = new ConstructWoodenHouse();
-      Client(woodenhouse);  
+        shared_ptr<ConstructWoodenHouse> woodenhouse = make_shared<ConstructWoodenHouse>();
+        woodenhouse->MakeHouse();
     }
-    else if(x==2)
+    else if (x == 2)
     {
-      ConstructSteelHouse * steelhouse = new ConstructSteelHouse();
-      Client(steelhouse);  
+        shared_ptr<ConstructSteelHouse> steelhouse = make_shared<ConstructSteelHouse>();
+        steelhouse->MakeHouse();
     }
-    
+
 }
