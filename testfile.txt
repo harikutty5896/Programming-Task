@@ -51,8 +51,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 999,0,99,99
- PRODUCTVERSION 999,0,99,99
+ FILEVERSION 1,0,1,6
+ PRODUCTVERSION 1,0,1,6
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -69,12 +69,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "TODO: <Company name>"
             VALUE "FileDescription", "TODO: <File description>"
-            VALUE "FileVersion", "999.0.99.99"
+            VALUE "FileVersion", "1.0.1.6"
             VALUE "InternalName", "ThreadPr.exe"
             VALUE "LegalCopyright", "Copyright (C) 2022"
             VALUE "OriginalFilename", "ThreadPr.exe"
             VALUE "ProductName", "TODO: <Product name>"
-            VALUE "ProductVersion", "999.0.99.99"
+            VALUE "ProductVersion", "1.0.1.6"
         END
     END
     BLOCK "VarFileInfo"
